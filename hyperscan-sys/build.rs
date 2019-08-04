@@ -90,15 +90,15 @@ fn main() {
 
     for lib in libhs.libs {
         if lib.contains("hs") {
-            println!("cargo:rustc-link-lib=dylib={}", lib);
+            println!("cargo:rustc-link-lib=static={}", lib);
         }
     }
 
     if cfg!(any(target_os = "macos", target_os = "freebsd")) {
         println!("cargo:rustc-link-lib=dylib=c++");
     } else {
-        println!("cargo:rustc-link-lib=dylib=stdc++");
-        println!("cargo:rustc-link-lib=dylib=gcc");
+        println!("cargo:rustc-link-lib=static=stdc++");
+        println!("cargo:rustc-link-lib=static=ssp_nonshared");
     }
 
     for link_path in libhs.link_paths {
